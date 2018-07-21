@@ -14,7 +14,7 @@ import { ActivatedRoute} from '@angular/router';
 })
 
 export class LottoGamesComponent implements OnInit  {
-  
+
   constructor(private ws: WebService, private route: ActivatedRoute) { }
 
   ngOnInit() {

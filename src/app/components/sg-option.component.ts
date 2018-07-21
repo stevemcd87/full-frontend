@@ -7,7 +7,7 @@ import { ActivatedRoute} from '@angular/router';
   template: `
   <h2>{{this.ws.selectedOptionName}}</h2>
   `
-})  
+})
 export class SgOptionComponent implements OnInit, AfterContentChecked {
   game = this.route.snapshot.params.game;
   lottoGame;

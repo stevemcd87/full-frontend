@@ -14,8 +14,8 @@ import { AfterContentInit, OnDestroy } from '@angular/core/src/metadata/lifecycl
   <div *ngFor="let option of options">
     <button *ngIf="ws.lottoGame" [routerLink] ="['/',game,option]" (click)="dds.onSelectOption(option)" >{{ws.displayName(option)}}</button>
   </div>
-  
-  `  
+
+  `
 })
 // <sg-option *ngIf="ws.selectedOption" ></sg-option>
 export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDestroy {
@@ -45,7 +45,7 @@ export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDest
         if (allTRs[i].parentElement.id === 'comparedList'){
           comparedTR.push(allTRs[i]);
         }
-      } 
+      }
       comparedTR.forEach((val,ind) => {
         if (ind !== 0) {
           let id = val.getElementsByClassName('td-id')[0].innerHTML;
@@ -61,11 +61,11 @@ export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDest
         }
       }
     }
-    
+
   }
   ngOnDestroy(){
-      if (document.contains(document.getElementById("tableDiv"))) { 
+      if (document.contains(document.getElementById("tableDiv"))) {
         document.getElementById("tableDiv").remove();
-      } 
+      }
   }
 }
