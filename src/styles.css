@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+#table2 {
+    width: 100%;
+}
+
+.orderBy-able {
+    background: lightblue;
+}
+
+
+/* .tableHeader {
+    display: inline;
+} */
+
+td {
+    text-align: center;
+}
