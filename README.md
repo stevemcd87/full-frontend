@@ -3,7 +3,7 @@
 ## To Run
   - Install angular-cli by running 'npm install -g @angular/cli' in your terminal [Installation Guide](https://www.npmjs.com/package/@angular/cli#installation)
   - Then run `ng serve`. Navigate to `http://localhost:4200/`.
-  - Please make sure you to do full-backend steps as well.
+  - Please make sure you to do [full-backend](https://github.com/stevemcd87/full-backend) folder steps as well.
 
 ## Default ReamMe
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.7.
