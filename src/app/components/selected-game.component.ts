@@ -53,7 +53,10 @@ export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDest
         }
       })
       this.dds.optionSelected.forEach(val => {
-        selectedOptionListID.push(val.lotto.id);
+        if (val.lotto) {
+          selectedOptionListID.push(val.lotto.id);
+        }
+
       });
       for (let i = 0; i < selectedOptionListID.length; i += 1) {
         if(selectedOptionListID[i] !== displayedListID[i]) {
