@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, AfterContentChecked } from '@angular/core';
 import { WebService } from '../services/web.service';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 // <app-game-nav></app-game-nav>
 @Component({
   selector: 'sg-option',
@@ -16,7 +16,7 @@ export class SgOptionComponent implements OnInit, AfterContentChecked {
   ngOnInit() {
     this.ws.getLottoGames(this.game);
   }
-  ngAfterContentChecked(){
+  ngAfterContentChecked() {
     console.log('afterChecked');
   }
 }
