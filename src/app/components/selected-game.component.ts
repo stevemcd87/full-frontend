@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, AfterContentInit, OnDestroy } from '@angular/core';
 import { WebService } from '../services/web.service';
 import { DisplayDataService } from '../services/display-data.service';
-import { ActivatedRoute} from '@angular/router';
-import { AfterContentInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ActivatedRoute } from '@angular/router';
+// import { AfterContentInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+// import {OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-selected-game',
@@ -18,7 +19,7 @@ import { AfterContentInit, OnDestroy } from '@angular/core/src/metadata/lifecycl
   `
 })
 // <sg-option *ngIf="ws.selectedOption" ></sg-option>
-export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDestroy {
+export class SelectedGameComponent implements OnInit, AfterContentChecked, OnDestroy {
   game = this.route.snapshot.params.game;
   selectedOption;
   options = [
@@ -30,26 +31,26 @@ export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDest
     private dds: DisplayDataService) { }
 
   ngOnInit() {
-   const game = this.route.snapshot.params.game;
-   this.ws.getLottoGames(game);
+    const game = this.route.snapshot.params.game;
+    this.ws.getLottoGames(game);
   }
-  ngAfterContentChecked(){
+  ngAfterContentChecked() {
     let tbl = document.getElementById("tableDiv");
-    if(this.dds.optionSelected) {
+    if (this.dds.optionSelected) {
       console.log(this.dds.optionSelected);
       let allTRs = document.querySelectorAll('tr');
       let comparedTR = [];
       let displayedListID = [];
       let selectedOptionListID = [];
-      for (let i = 0;i < allTRs.length; i++){
-        if (allTRs[i].parentElement.id === 'comparedList'){
+      for (let i = 0; i < allTRs.length; i++) {
+        if (allTRs[i].parentElement.id === 'comparedList') {
           comparedTR.push(allTRs[i]);
         }
       }
-      comparedTR.forEach((val,ind) => {
+      comparedTR.forEach((val, ind) => {
         if (ind !== 0) {
           let id = val.getElementsByClassName('td-id')[0].innerHTML;
-         displayedListID.push(+id);
+          displayedListID.push(+id);
         }
       })
       this.dds.optionSelected.forEach(val => {
@@ -59,16 +60,16 @@ export class SelectedGameComponent implements OnInit,AfterContentChecked, OnDest
 
       });
       for (let i = 0; i < selectedOptionListID.length; i += 1) {
-        if(selectedOptionListID[i] !== displayedListID[i]) {
+        if (selectedOptionListID[i] !== displayedListID[i]) {
           return this.dds.onSelectOption('compared-list', this.dds.optionSelected);
         }
       }
     }
 
   }
-  ngOnDestroy(){
-      if (document.contains(document.getElementById("tableDiv"))) {
-        document.getElementById("tableDiv").remove();
-      }
+  ngOnDestroy() {
+    if (document.contains(document.getElementById("tableDiv"))) {
+      document.getElementById("tableDiv").remove();
+    }
   }
 }

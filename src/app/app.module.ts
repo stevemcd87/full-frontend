@@ -16,15 +16,15 @@ import { SgOptionComponent } from './components/sg-option.component';
 
 const routes = [
   {
-    path:'',
+    path: '',
     component: LottoGamesComponent
   }
-  ,  {
-    path:':game',
+  , {
+    path: ':game',
     component: SelectedGameComponent
   }
- ,  {
-    path:':game/:option',
+  , {
+    path: ':game/:option',
     component: SelectedGameComponent
   }
 ]
