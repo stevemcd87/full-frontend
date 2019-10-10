@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -16,15 +17,15 @@ import { SgOptionComponent } from './components/sg-option.component';
 
 const routes = [
   {
-    path:'',
+    path: '',
     component: LottoGamesComponent
   }
-  ,  {
-    path:':game',
+  , {
+    path: ':game',
     component: SelectedGameComponent
   }
- ,  {
-    path:':game/:option',
+  , {
+    path: ':game/:option',
     component: SelectedGameComponent
   }
 ]
@@ -38,7 +39,7 @@ const routes = [
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes)
   ],

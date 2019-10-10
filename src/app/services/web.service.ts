@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+// import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 import { error } from 'util';
@@ -14,31 +15,32 @@ export class WebService {
   lottoGames;
 
   options = [
-    { "lottoPossibilities" : [ "id", "lotto" ]},
-    { "winningHistory" : [ "date", "time", "winningNumbers" ]},
-    { "comparedList" : [ "boxNumber", "lotto", "straightNumber", "winningDates" ]},
+    { "lottoPossibilities": ["id", "lotto"] },
+    { "winningHistory": ["date", "time", "winningNumbers"] },
+    { "comparedList": ["boxNumber", "lotto", "straightNumber", "winningDates"] },
   ];//, "numberDate"
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.getLottoGames();
-   }
+  }
 
   getLottoGames(game?, option?) {
     let selectedGame;
     if (option) {
-      selectedGame = '' + game +'/'+ option;
+      selectedGame = '' + game + '/' + option;
     } else {
       selectedGame = (game) ? '' + game : ''
     }
     this.http.get('http://localhost:59874/' + selectedGame).subscribe(res => {
-      if(option) {
-        return this.gameOption = res.json();
-      } else if(selectedGame.length > 0) {
-      return this.lottoGame = res.json();
-    } else {
-      return this.lottoGames = res.json(); 
-    }
+      console.log(res);
+      if (option) {
+        return this.gameOption = res[option];
+      } else if (selectedGame.length > 0) {
+        return this.lottoGame = res;
+      } else {
+        return this.lottoGames = res;
+      }
     }, error => {
-      if(selectedGame.length > 0) {
+      if (selectedGame.length > 0) {
         console.error('Error in getting lotto game');
       } else {
         console.error('Error in getting lotto games');
@@ -49,13 +51,13 @@ export class WebService {
   displayName(option) {
     let clone = option.split("-");
     clone.forEach((element, ind, arr) => {
-     arr[ind] =  element.charAt(0).toUpperCase() + element.slice(1);
-    }); 
+      arr[ind] = element.charAt(0).toUpperCase() + element.slice(1);
+    });
     clone = clone.join(" ");
     return clone;
   }
 
-  orderBy(array : any[], objectKey : string, direction : string) { 
+  orderBy(array: any[], objectKey: string, direction: string) {
     switch (direction) {
       case 'up':
         array.sort((a, b) => {
@@ -70,20 +72,20 @@ export class WebService {
     }
     return array;
   } // End of OrderBy()
-  createNumberDate(array){
-      array.forEach((val, ind )=> {
-             val.numberDate = string2NumberDate(val.date);
-      });
-      return array;
-      function string2NumberDate(date : string) : number {
-          let century;
-          let arrayDate = date.split("/")
-          const dayDate = Number(arrayDate.slice(1, 2));
-          const monthDate = Number(arrayDate.slice(0, 1)) - 1;
-          let yearDate = Number(arrayDate.slice(2));
-          (yearDate > 80) ? century = 1900 : century = 2000;
-          yearDate += century;
-          return new Date(yearDate, monthDate, dayDate).getTime();
-      } // End of string2NumberDate
+  createNumberDate(array) {
+    array.forEach((val, ind) => {
+      val.numberDate = string2NumberDate(val.date);
+    });
+    return array;
+    function string2NumberDate(date: string): number {
+      let century;
+      let arrayDate = date.split("/")
+      const dayDate = Number(arrayDate.slice(1, 2));
+      const monthDate = Number(arrayDate.slice(0, 1)) - 1;
+      let yearDate = Number(arrayDate.slice(2));
+      (yearDate > 80) ? century = 1900 : century = 2000;
+      yearDate += century;
+      return new Date(yearDate, monthDate, dayDate).getTime();
+    } // End of string2NumberDate
   } // End of CreateNumverDate()
 }

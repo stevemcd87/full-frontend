@@ -3,6 +3,10 @@ import { WebService } from '../services/web.service';
 import { DisplayDataService } from '../services/display-data.service';
 import { ActivatedRoute } from '@angular/router';
 // import { AfterContentInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+<<<<<<< HEAD
+=======
+// import {OnDestroy } from '@angular/core';
+>>>>>>> updatingCLI
 
 @Component({
   selector: 'app-selected-game',
