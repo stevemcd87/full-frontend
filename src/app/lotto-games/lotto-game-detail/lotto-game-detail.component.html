@@ -5,4 +5,5 @@
   <button *ngIf="lottoGame" [routerLink]="['/',this.lottoGame.valueName,this.lgs.optionValue(option)]" routerLinkActive="active">
     {{lgs.displayName(option)}}
   </button>
+  <router-outlet></router-outlet>
 </div>
