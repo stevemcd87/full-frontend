@@ -6,17 +6,14 @@ import { ILotto, IWinningHistory, ILottoGame, IComparedLotto } from '../interfac
 @Component({
   selector: 'app-sg-option',
   template: `
-  <h2 *ngIf=ws.lottoGame>{{ws.lottoGame.name}}</h2>
+  <h2 >sg-option</h2>
   `
 })
 export class SgOptionComponent implements OnInit {
-  params = this.route.snapshot.params;
-  game = this.params.game;
-  option = this.params.option;
   constructor(private ws: WebService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.params)
+    console.log('this.params')
     // this.showLottoGameOption();
 
   }

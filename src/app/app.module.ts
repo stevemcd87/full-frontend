@@ -15,6 +15,10 @@ import { LottoGamesComponent } from './components/lotto-games.component';
 import { SgOptionComponent } from './components/sg-option.component';
 import { LottoGameOptionsComponent } from './components/lotto-game-options.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { LottoGameListComponent } from './lotto-games/lotto-game-list/lotto-game-list.component';
+import { LottoGamesModule } from './lotto-games/lotto-games.module';
+// import { LottoGameDetailComponent } from './lotto-games/lotto-game-detail/lotto-game-detail.component';
 
 
 
@@ -24,14 +28,18 @@ import { AppRoutingModule } from './app-routing.module';
     SelectedGameComponent,
     LottoGamesComponent,
     SgOptionComponent,
-    LottoGameOptionsComponent
+    LottoGameOptionsComponent,
+    // LottoGameListComponent,
+    // LottoGameDetailComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     // RouterModule.forRoot(routes),
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    LottoGamesModule// Best to be last
   ],
   providers: [WebService, Compared2HistoryService, AlgoService, DisplayDataService],
   bootstrap: [AppComponent]

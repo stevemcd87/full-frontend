@@ -1,39 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { WebService } from '../services/web.service';
-import { DisplayDataService } from '../services/display-data.service';
+import { LottoGameService } from '../lotto-game.service';
+// import { DisplayDataService } from '../../services/display-data.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';
-import { ILottoGame } from '../interface';
-
-
+import { ILottoGame } from '../../interface';
 @Component({
-  selector: 'app-selected-game',
-  template: `
-  <button (click)="goBack()">Back</button>
-
-    <h2 *ngIf="this.lottoGame">{{this.lottoGame.name}}</h2>
-    <div *ngFor="let option of options">
-      <button
-        *ngIf="lottoGame"
-        [routerLink] ="['/',lottoGameName,option]"
-        routerLinkActive="active"
-        >
-        {{ws.displayName(option)}}
-      </button>
-    </div>
-  `,
-  styles: [
-    '.active { font-weight: bold; }'
-  ]
+  selector: 'app-lotto-game-detail',
+  templateUrl: './lotto-game-detail.component.html',
+  styleUrls: ['./lotto-game-detail.component.css']
 })
-
-// <app-lotto-game-options
-//   *ngIf="this.lottoGame"
-//   [lottoGame]=this.lottoGame
-// ></app-lotto-game-options>
-
-export class SelectedGameComponent implements OnInit {
+export class LottoGameDetailComponent implements OnInit {
   lottoGame: ILottoGame;
   options = [
     'lotto-possibilities',
@@ -42,7 +19,7 @@ export class SelectedGameComponent implements OnInit {
   ];
 
   constructor(
-    private ws: WebService,
+    private lgs: LottoGameService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
@@ -58,7 +35,7 @@ export class SelectedGameComponent implements OnInit {
 
   showLottoGame() {
     const game = this.route.snapshot.paramMap.get('game');
-    this.ws.getLottoGame(game)
+    this.lgs.getLottoGame(game)
       .subscribe((data: ILottoGame) => {
         this.lottoGame = data;
         console.log(this.lottoGame);
@@ -70,5 +47,4 @@ export class SelectedGameComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
 }

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebService } from '../services/web.service';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
 
 import { ILottoGame } from '../interface';
 
@@ -20,9 +17,10 @@ import { ILottoGame } from '../interface';
 
 export class LottoGamesComponent implements OnInit {
   lottoGames: ILottoGame[]
-  constructor(private ws: WebService, private route: ActivatedRoute) {
-
-  }
+  constructor(
+    private ws: WebService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.showLottoGames();
