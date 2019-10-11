@@ -1,74 +1,51 @@
-import { Component, OnInit, AfterContentChecked, AfterContentInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WebService } from '../services/web.service';
 import { DisplayDataService } from '../services/display-data.service';
 import { ActivatedRoute } from '@angular/router';
-// import { AfterContentInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ILottoGame } from '../interface';
 
 @Component({
   selector: 'app-selected-game',
   template: `
-  <button id="b2g" [routerLink] ="['/' ]">Home Page</button>
-  <div *ngIf="ws.lottoGame">
-    <h2>{{this.ws.lottoGame.name}}</h2>
-  </div>
-  <div *ngFor="let option of options">
-    <button *ngIf="ws.lottoGame" [routerLink] ="['/',game,option]" (click)="dds.onSelectOption(option)" >{{ws.displayName(option)}}</button>
-  </div>
+  <button [routerLink] ="['/' ]">Home Page</button>
+
+    <h2 *ngIf="this.lottoGame">{{this.lottoGame.name}}</h2>
+    <div *ngFor="let option of options">
+      <button *ngIf="lottoGame" [routerLink] ="['/',lottoGameName,option]">{{ws.displayName(option)}}</button>
+    </div>
 
   `
 })
-// <sg-option *ngIf="ws.selectedOption" ></sg-option>
-export class SelectedGameComponent implements OnInit, AfterContentChecked, OnDestroy {
-  game = this.route.snapshot.params.game;
-  selectedOption;
+
+// <app-lotto-game-options
+//   *ngIf="this.lottoGame"
+//   [lottoGame]=this.lottoGame
+// ></app-lotto-game-options>
+
+export class SelectedGameComponent implements OnInit {
+  params = this.route.snapshot.params;
+  game = this.params.game;
+  lottoGame: ILottoGame;
   options = [
     'lotto-possibilities',
     'winning-history',
     'compared-list'
   ];
-  constructor(private ws: WebService, private route: ActivatedRoute,
-    private dds: DisplayDataService) { }
+
+  constructor(private ws: WebService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const game = this.route.snapshot.params.game;
-    this.ws.getLottoGames(game);
+    this.showLottoGame();
   }
-  ngAfterContentChecked() {
-    let tbl = document.getElementById("tableDiv");
-    if (this.dds.optionSelected) {
-      console.log(this.dds.optionSelected);
-      let allTRs = document.querySelectorAll('tr');
-      let comparedTR = [];
-      let displayedListID = [];
-      let selectedOptionListID = [];
-      for (let i = 0; i < allTRs.length; i++) {
-        if (allTRs[i].parentElement.id === 'comparedList') {
-          comparedTR.push(allTRs[i]);
-        }
-      }
-      comparedTR.forEach((val, ind) => {
-        if (ind !== 0) {
-          let id = val.getElementsByClassName('td-id')[0].innerHTML;
-          displayedListID.push(+id);
-        }
-      })
-      this.dds.optionSelected.forEach(val => {
-        if (val.lotto) {
-          selectedOptionListID.push(val.lotto.id);
-        }
 
+  showLottoGame() {
+    this.ws.getLottoGame(this.game)
+      .subscribe((data: ILottoGame) => {
+        this.lottoGame = data;
+        console.log(this.lottoGame);
+      }, error => {
+        console.error('Error in getting lotto game');
       });
-      for (let i = 0; i < selectedOptionListID.length; i += 1) {
-        if (selectedOptionListID[i] !== displayedListID[i]) {
-          return this.dds.onSelectOption('compared-list', this.dds.optionSelected);
-        }
-      }
-    }
+  }
 
-  }
-  ngOnDestroy() {
-    if (document.contains(document.getElementById("tableDiv"))) {
-      document.getElementById("tableDiv").remove();
-    }
-  }
 }

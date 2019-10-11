@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// import { HttpModule } from '@angular/http';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SelectedGameComponent } from './components/selected-game.component';
@@ -14,34 +13,25 @@ import { AlgoService } from './services/algo.service';
 import { Compared2HistoryService } from './services/compared-2-history.service';
 import { LottoGamesComponent } from './components/lotto-games.component';
 import { SgOptionComponent } from './components/sg-option.component';
+import { LottoGameOptionsComponent } from './components/lotto-game-options.component';
+import { AppRoutingModule } from './app-routing.module';
 
-const routes = [
-  {
-    path: '',
-    component: LottoGamesComponent
-  }
-  , {
-    path: ':game',
-    component: SelectedGameComponent
-  }
-  , {
-    path: ':game/:option',
-    component: SelectedGameComponent
-  }
-]
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SelectedGameComponent,
     LottoGamesComponent,
-    SgOptionComponent
+    SgOptionComponent,
+    LottoGameOptionsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    // RouterModule.forRoot(routes),
+    AppRoutingModule
   ],
   providers: [WebService, Compared2HistoryService, AlgoService, DisplayDataService],
   bootstrap: [AppComponent]

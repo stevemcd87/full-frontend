@@ -1,60 +1,69 @@
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
-
-import 'rxjs/add/operator/toPromise';
-import { error } from 'util';
-import { ILottoGame, ILottoDetails } from '../interface';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { ILottoGame, ILotto, IWinningHistory, IComparedLotto } from '../interface';
 
 @Injectable()
 export class WebService {
-  selectedOption;
-  selectedOptionName;
-  gameOption;
-  lottoGame;
-  lottoGames;
+  lottoGameOption: Array<ILotto | IWinningHistory | IComparedLotto>;
+  lottoGame: ILottoGame;
+  lottoGames: Array<ILottoGame>;
+  nodeEndPoint = 'http://localhost:59874';
 
   options = [
     { "lottoPossibilities": ["id", "lotto"] },
     { "winningHistory": ["date", "time", "winningNumbers"] },
     { "comparedList": ["boxNumber", "lotto", "straightNumber", "winningDates"] },
-  ];//, "numberDate"
-  constructor(private http: HttpClient) {
-    this.getLottoGames();
+  ];
+  constructor(private http: HttpClient) { }
+
+  getLottoGames(): Observable<ILottoGame[]> {
+    return this.http.get<ILottoGame[]>(this.nodeEndPoint)
+      .pipe(
+        tap(_ => console.log('fetched Lotto Games')),
+        catchError(this.handleError<ILottoGame[]>('getLottoGames', []))
+      );
   }
 
-  getLottoGames(game?, option?) {
-    let selectedGame;
+  getLottoGame(game: string): Observable<ILottoGame> {
+    const url = `${this.nodeEndPoint}/${game}`;
+    return this.http.get<ILottoGame>(url)
+      .pipe(
+        tap(_ => console.log(`fetched Lotto Game: ${game}`)),
+        catchError(this.handleError<ILottoGame>(`getLottoGame id=${game}`))
+      );
+  }
+
+  // getLottoGameOption(game: string, option: string): Observable<ILotto | IWinningHistory | IComparedLotto> {
+  //   const url = `${nodeEndPoint}/${game}/${option}`
+  //   return this.http.get(url)
+  //     .subscribe(res => {
+  //       this.lottoGameOption = res;
+  //     }, error => {
+  //       console.error('Error in getting lotto game - Make sure the server is running');
+  //     });
+  // }
+
+
+  optionValue(option: string): string {
     if (option) {
-      selectedGame = '' + game + '/' + option;
-    } else {
-      selectedGame = (game) ? '' + game : ''
+      let optionWords = option.split('-'),
+        capitalLetter = optionWords[1].slice(0, 1).toUpperCase();
+      optionWords[1] = capitalLetter + optionWords[1].slice(1);
+      return optionWords.join('')
     }
-    this.http.get('http://localhost:59874/' + selectedGame).subscribe(res => {
-      console.log(res);
-      if (option) {
-        return this.gameOption = res[option];
-      } else if (selectedGame.length > 0) {
-        return this.lottoGame = res;
-      } else {
-        return this.lottoGames = res;
-      }
-    }, error => {
-      if (selectedGame.length > 0) {
-        console.error('Error in getting lotto game');
-      } else {
-        console.error('Error in getting lotto games');
-      } // NEED AN ERROR FOR GAME OPTION
-    });
-  }// End of getLottoGames()
+  }
+
 
   displayName(option) {
-    let clone = option.split("-");
-    clone.forEach((element, ind, arr) => {
-      arr[ind] = element.charAt(0).toUpperCase() + element.slice(1);
-    });
-    clone = clone.join(" ");
-    return clone;
+    return (
+      option
+        .split("-")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    )
   }
 
   orderBy(array: any[], objectKey: string, direction: string) {
@@ -72,6 +81,7 @@ export class WebService {
     }
     return array;
   } // End of OrderBy()
+
   createNumberDate(array) {
     array.forEach((val, ind) => {
       val.numberDate = string2NumberDate(val.date);
@@ -88,4 +98,15 @@ export class WebService {
       return new Date(yearDate, monthDate, dayDate).getTime();
     } // End of string2NumberDate
   } // End of CreateNumverDate()
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 }

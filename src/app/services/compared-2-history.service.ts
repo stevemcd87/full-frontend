@@ -1,56 +1,58 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { WebService } from './web.service';
-import {ILotto, IWinningHistory, ILottoGame, IComparedLotto} from '../interface';
-import {Observable} from 'rxjs/Observable';
-import {identifierName} from '@angular/compiler';
+import { ILotto, IWinningHistory, ILottoGame, IComparedLotto } from '../interface';
+import { Observable } from 'rxjs/Observable';
+import { identifierName } from '@angular/compiler';
 // import {setInterval} from 'timers';
 @Injectable()
 export class Compared2HistoryService {
 
-  constructor(private ws: WebService) {}
+  constructor(private ws: WebService) { }
 
-  compare2History(lottoGame: ILottoGame) : IComparedLotto[] {
-    const lottoPossibilities = lottoGame.lottoPossibilities;
-    const winningHistory = lottoGame.winningHistory;
-    const winnings = lottoGame.winnings;
-    // const boxWayArray = winnings.box[0].prize;
-    const comparedList : IComparedLotto[] = [];
+  compare2History(lottoGame: ILottoGame): IComparedLotto[] {
+    const lottoPossibilities = lottoGame.lottoPossibilities,
+      winningHistory = lottoGame.winningHistory,
+      comparedList: IComparedLotto[] = [];
     let moneyWon = 0;
     comparedList.length = 0;
-    lottoPossibilities.forEach((val, ind, arr) => { // val = .id & .lotto
-      const lotto = val.lotto;
-      const id = val.id;
-      let winningDates : IWinningHistory[] = [];
-      let straightNumber = 0; // amount of times lotto won straight
-      let boxNumber = 0; // amount of times lotto won box
-      let boxWay : string;
+    lottoPossibilities.forEach((lottoPossibility, ind, arr) => {
+      const lotto = lottoPossibility.lotto,
+        id = lottoPossibility.id;
+      let winningDates: IWinningHistory[] = [],
+        straightNumber = 0, // amount of times lotto won straight
+        boxNumber = 0, // amount of times lotto won box
+        // Amount of ways the lotto numbers can win 'Box'
+        boxWay: string;
       winningDates.length = 0;
-      
-      winningHistory.forEach((val2, ind2, arr2) => { // val2 = .date, .time, .winningNumber
-        const winningNumbers = val2.winningNumbers;
-        const numberDate = this.ws.createNumberDate(val2.date);
+
+      winningHistory.forEach((winDate, ind2, arr2) => { // winDate = .date, .time, .winningNumber
+        const winningNumbers = winDate.winningNumbers;
+        const numberDate = this.ws.createNumberDate(winDate.date);
+        // Checks how many time the lotto possibility won 'BOX'
         if (compareBox(lotto, winningNumbers)) {
           boxNumber += 1;
+          // Checks how many time the lotto possibility won 'Straight'
           if (compareStraight(lotto, winningNumbers)) {
             straightNumber += 1;
-            winningDates.push({date: val2.date, numberDate: numberDate, time: val2.time, winningNumbers: winningNumbers, straight: true});
+            winningDates.push({ date: winDate.date, numberDate: numberDate, time: winDate.time, winningNumbers: winningNumbers, straight: true });
           } else {
-            boxWay = checkSameDiffNumbs(lotto); 
-            winningDates.push({date: val2.date, numberDate: numberDate, time: val2.time, winningNumbers: winningNumbers, straight: false});
+            boxWay = checkSameDiffNumbs(lotto);
+            winningDates.push({ date: winDate.date, numberDate: numberDate, time: winDate.time, winningNumbers: winningNumbers, straight: false });
           }
         }
       }); // End of winningHistory.forEach()
       if (boxNumber > 0) {
         this.ws.orderBy(winningDates, 'numberDate', 'down');
-        if(!boxWay){
-          boxWay= '1way';
+        if (!boxWay) {
+          boxWay = '1way';
         }
-        comparedList.push({ lotto: {lotto: lotto, id: id, boxWay: boxWay}, boxNumber: boxNumber, straightNumber: straightNumber, winningDates: winningDates});
+        comparedList.push({ lotto: { lotto: lotto, id: id, boxWay: boxWay }, boxNumber: boxNumber, straightNumber: straightNumber, winningDates: winningDates });
       }
     }); // End of lottoList.forEach()
     console.log(comparedList);
     return comparedList;
-    function compareBox(lotto : number[], winningNumber : number[]) : boolean {
+
+    function compareBox(lotto: number[], winningNumber: number[]): boolean {
       const lottoLength = lotto.length;
       let boxMatched = false;
       let numbersMatched = 0;
@@ -72,11 +74,12 @@ export class Compared2HistoryService {
       }
       return boxMatched;
     } // End of compareBox
-    function compareStraight(lotto : number[], winningNumber : number[]) : boolean {
+
+    function compareStraight(lotto: number[], winningNumber: number[]): boolean {
       const lottoLength = lotto.length;
       let numbersMatched = 0;
-      lotto.forEach((val, ind) => {
-        if (winningNumber[ind] === val) {
+      lotto.forEach((lottoNumber, ind) => {
+        if (winningNumber[ind] === lottoNumber) {
           numbersMatched += 1;
         } else {
           return false;
@@ -84,7 +87,9 @@ export class Compared2HistoryService {
       });
       return (numbersMatched === lottoLength) ? true : false;
     } // End of compareStraight
-    function checkSameDiffNumbs(lotto : number[]) : string {
+
+    // For future, Pick 4 Pick 5
+    function checkSameDiffNumbs(lotto: number[]): string {
       const newLotto = lotto.slice();
       const lottoLength = lotto.length;
       const checkArray: boolean[] = [];
@@ -92,12 +97,12 @@ export class Compared2HistoryService {
       newLotto.sort((a, b) => { return a - b; });
       newLotto.forEach((val, ind, arr) => {
         if (ind !== lottoLength - 1) {
-          (val === arr[ind + 1])? checkArray.push(true) : checkArray.push(false);
+          (val === arr[ind + 1]) ? checkArray.push(true) : checkArray.push(false);
         }
         switch (lottoLength) {
           case 2:
             boxWay = '2way';
-              break;
+            break;
           case 3:
             checkArray.forEach((val) => {
               if (val) {
@@ -105,27 +110,27 @@ export class Compared2HistoryService {
               }
             });
             if (!boxWay) {
-               boxWay = '6 ways';
+              boxWay = '6 ways';
             }
             break;
           case 4:
-          for (let i = 0; i < checkArray.length; i += 1) {
-            if (checkArray[i] === true) {
-              if (i !== checkArray.length - 1) {
-                if(checkArray[i + 1] === true) {
-                  boxWay = '4 ways';
-                  i += checkArray.length;
-                } else if (i === 0) {
-                  if (checkArray[i + 2] === true) {
-                    boxWay = '6 ways';
+            for (let i = 0; i < checkArray.length; i += 1) {
+              if (checkArray[i] === true) {
+                if (i !== checkArray.length - 1) {
+                  if (checkArray[i + 1] === true) {
+                    boxWay = '4 ways';
                     i += checkArray.length;
+                  } else if (i === 0) {
+                    if (checkArray[i + 2] === true) {
+                      boxWay = '6 ways';
+                      i += checkArray.length;
+                    }
                   }
+                } else {
+                  boxWay = '12 ways';
                 }
-              } else {
-                boxWay = '12 ways';
               }
             }
-          }
             if (!boxWay) {
               boxWay = '24 ways';
             }
@@ -135,68 +140,69 @@ export class Compared2HistoryService {
       return boxWay;
     } // End of checkSameDiffNumbs
   } // End of compare2History
-   createAverageSpand(comparedList){
-        const sortBy = this.ws.orderBy;
-        const day = 86400000;
-        comparedList.forEach(val => {
-            val.winningDates = this.ws.createNumberDate(val.winningDates);
-            val.winningDates =  addHalfDay(val.winningDates);
-            val.winningDates =  addLastTimeWon(val.winningDates);
-        });
-        comparedList =  shortLongSpand(comparedList);
-        comparedList = this.ws.orderBy(comparedList,'overDue', 'down');
-        return comparedList;
-        function addLastTimeWon(wd) {
-            wd.forEach((val, ind, arr) => {
-                let lastTimeWon;
-                if(ind < arr.length - 1) {
-                    lastTimeWon = (val.numberDate - arr[ind + 1].numberDate) / day;  
-                    lastTimeWon = lastTimeWon.toFixed(1);
-                } else {
-                  lastTimeWon = 'First';  
-                }
-                val.lastTimeWon = lastTimeWon;
-            });
-            return wd;
-        } //End of AddLastTimeWon()
-        function addHalfDay(wd) {
-            wd.forEach((val, ind )=> {
-                if(val.time === 'E') {
-                   val.numberDate += day * .5;
-                }
-            });
-            wd = sortBy(wd, 'numberDate', 'down');
-            return wd;
-        } // End of addHalfDay()
-        function shortLongSpand(cl){
-            const currentDate = new Date().getTime();
-            cl.forEach((val) => {
-                let lastValue;
-                let lastTimeWon;
-                let shortestSpand;
-                let longestSpand;
-                let averageSpand = 0;
 
-                lastValue = val.winningDates[val.winningDates.length - 1];
-                val.winningDates.splice(val.winningDates.length - 1, 1);
-                val.winningDates = sortBy(val.winningDates, 'lastTimeWon', 'up');
-                shortestSpand = val.winningDates[0].lastTimeWon;
-                longestSpand = val.winningDates[val.winningDates.length - 1].lastTimeWon;
-                val.winningDates.forEach((val2) => {
-                    averageSpand += +val2.lastTimeWon;
-                });
-                averageSpand = +(averageSpand / val.winningDates.length).toFixed(1);
-                val.shortestSpand = shortestSpand;
-                val.longestSpand = longestSpand;
-                val.averageSpand = averageSpand;
-                val.winningDates.push(lastValue);
-                val.winningDates = sortBy(val.winningDates, 'numberDate', 'down');
-                const lastTimeWonCurrent = (currentDate - val.winningDates[0].numberDate) / day;
-                val.lastTimeWonCurrent = lastTimeWonCurrent.toFixed(1);
-                const overDue = (lastTimeWonCurrent - longestSpand).toFixed(1);
-                val.overDue = overDue;
-            });
-            return cl;
-        } // End of ShortLongSpand
-    } // end of createAverageSpand
+  createAverageSpand(comparedList) {
+    const sortBy = this.ws.orderBy,
+      day = 86400000;
+    comparedList.forEach(val => {
+      val.winningDates = this.ws.createNumberDate(val.winningDates);
+      val.winningDates = addHalfDay(val.winningDates);
+      val.winningDates = addLastTimeWon(val.winningDates);
+    });
+    comparedList = shortLongSpand(comparedList);
+    comparedList = this.ws.orderBy(comparedList, 'overDue', 'down');
+    return comparedList;
+    function addLastTimeWon(wd) {
+      wd.forEach((val, ind, arr) => {
+        let lastTimeWon;
+        if (ind < arr.length - 1) {
+          lastTimeWon = (val.numberDate - arr[ind + 1].numberDate) / day;
+          lastTimeWon = lastTimeWon.toFixed(1);
+        } else {
+          lastTimeWon = 'First';
+        }
+        val.lastTimeWon = lastTimeWon;
+      });
+      return wd;
+    } //End of AddLastTimeWon()
+    function addHalfDay(wd) {
+      wd.forEach((val, ind) => {
+        if (val.time === 'E') {
+          val.numberDate += day * .5;
+        }
+      });
+      wd = sortBy(wd, 'numberDate', 'down');
+      return wd;
+    } // End of addHalfDay()
+    function shortLongSpand(cl) {
+      const currentDate = new Date().getTime();
+      cl.forEach((val) => {
+        let lastValue;
+        let lastTimeWon;
+        let shortestSpand;
+        let longestSpand;
+        let averageSpand = 0;
+
+        lastValue = val.winningDates[val.winningDates.length - 1];
+        val.winningDates.splice(val.winningDates.length - 1, 1);
+        val.winningDates = sortBy(val.winningDates, 'lastTimeWon', 'up');
+        shortestSpand = val.winningDates[0].lastTimeWon;
+        longestSpand = val.winningDates[val.winningDates.length - 1].lastTimeWon;
+        val.winningDates.forEach((val2) => {
+          averageSpand += +val2.lastTimeWon;
+        });
+        averageSpand = +(averageSpand / val.winningDates.length).toFixed(1);
+        val.shortestSpand = shortestSpand;
+        val.longestSpand = longestSpand;
+        val.averageSpand = averageSpand;
+        val.winningDates.push(lastValue);
+        val.winningDates = sortBy(val.winningDates, 'numberDate', 'down');
+        const lastTimeWonCurrent = (currentDate - val.winningDates[0].numberDate) / day;
+        val.lastTimeWonCurrent = lastTimeWonCurrent.toFixed(1);
+        const overDue = (lastTimeWonCurrent - longestSpand).toFixed(1);
+        val.overDue = overDue;
+      });
+      return cl;
+    } // End of ShortLongSpand
+  } // end of createAverageSpand
 } // End of Class
