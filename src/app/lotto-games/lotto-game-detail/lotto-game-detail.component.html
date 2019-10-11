@@ -1,4 +1,4 @@
-<h2 *ngIf="this.lottoGame">{{this.lottoGame.name}}</h2>
+<h2 *ngIf="lottoGame">{{this.lottoGame.name}}</h2>
 <div *ngFor="let option of options">
   <button *ngIf="lottoGame" [routerLink]="['/lotto-games',this.lottoGame.valueName,this.lgs.optionValue(option)]" routerLinkActive="active">
     {{lgs.displayName(option)}}

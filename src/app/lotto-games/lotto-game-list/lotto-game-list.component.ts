@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LottoGameService } from '../lotto-game.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 import { ILottoGame } from '../../interface';
 
@@ -10,20 +10,28 @@ import { ILottoGame } from '../../interface';
   styleUrls: ['./lotto-game-list.component.css']
 })
 export class LottoGameListComponent implements OnInit {
-  lottoGames: ILottoGame[]
+  lottoGames: ILottoGame[];
   constructor(
     private lgs: LottoGameService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.showLottoGames();
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.showLottoGames();
+    //   }
+    // })
+    // this.showLottoGames();
   }
 
-  showLottoGames(): void {
+  showLottoGames() {
     this.lgs.getLottoGames()
       .subscribe((data: ILottoGame[]) => {
         this.lottoGames = data;
+        console.log(this.lottoGames);
       }, error => {
         console.error('Error in getting lotto games');
       });

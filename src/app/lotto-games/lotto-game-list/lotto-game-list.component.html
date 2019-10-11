@@ -1,5 +1,7 @@
 <div *ngIf="lgs.errors">{{lgs.errors}}</div>
-<div *ngFor="let lottoGame of this.lottoGames; let i = index">
-  <button [routerLink]="['/lotto-games' ,this.lottoGames[i].valueName ]">{{lottoGame.name}}</button>
+<div *ngIf="this.lottoGames" >
+  <div *ngFor="let lottoGame of lottoGames">
+    <button [routerLink]="['/lotto-games' ,lottoGame.valueName ]">{{lottoGame.name}}</button>
+  </div>
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

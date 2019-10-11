@@ -28,7 +28,7 @@ export class LottoGameService {
   }
 
   getLottoGame(game: string): Observable<ILottoGame> {
-    const url = `${this.nodeEndPoint}/${game}`;
+    const url = `${this.nodeEndPoint}/lotto-games/${game}`;
     return this.http.get<ILottoGame>(url)
       .pipe(
         tap(_ => console.log(`fetched Lotto Game: ${game}`)),
@@ -36,15 +36,14 @@ export class LottoGameService {
       );
   }
 
-  // getLottoGameOption(game: string, option: string): Observable<ILotto | IWinningHistory | IComparedLotto> {
-  //   const url = `${nodeEndPoint}/${game}/${option}`
-  //   return this.http.get(url)
-  //     .subscribe(res => {
-  //       this.lottoGameOption = res;
-  //     }, error => {
-  //       console.error('Error in getting lotto game - Make sure the server is running');
-  //     });
-  // }
+  getLottoGameOption(game: string, option: string): Observable<ILotto[] | IWinningHistory[] | IComparedLotto[]> {
+    const url = `${this.nodeEndPoint}/lotto-games/${game}/${option}`
+    return this.http.get<ILotto[] | IWinningHistory[] | IComparedLotto[]>(url)
+      .pipe(
+        tap(_ => console.log(`fetched Lotto Game option: ${option}`)),
+        catchError(this.handleError<ILotto[] | IWinningHistory[] | IComparedLotto[]>(`getLottoGameOption game=${game} option=${option}`))
+      );
+  }
 
 
   optionValue(option: string): string {
