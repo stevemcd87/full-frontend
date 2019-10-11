@@ -16,7 +16,7 @@ import { ILottoGame } from '../interface';
     <div *ngFor="let option of options">
       <button
         *ngIf="lottoGame"
-        [routerLink] ="['/',lottoGameName,option]"
+        
         routerLinkActive="active"
         >
         {{ws.displayName(option)}}

@@ -1,9 +1,7 @@
-<button (click)="goBack()">Back</button>
-
 <h2 *ngIf="this.lottoGame">{{this.lottoGame.name}}</h2>
 <div *ngFor="let option of options">
-  <button *ngIf="lottoGame" [routerLink]="['/',this.lottoGame.valueName,this.lgs.optionValue(option)]" routerLinkActive="active">
+  <button *ngIf="lottoGame" [routerLink]="['/lotto-games',this.lottoGame.valueName,this.lgs.optionValue(option)]" routerLinkActive="active">
     {{lgs.displayName(option)}}
   </button>
-  <router-outlet></router-outlet>
 </div>
+<router-outlet></router-outlet>

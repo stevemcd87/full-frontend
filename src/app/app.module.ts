@@ -37,10 +37,10 @@ import { LottoGameService } from './lotto-games/lotto-game.service';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    // RouterModule.forRoot(routes),
     BrowserAnimationsModule,
-    AppRoutingModule,
-    LottoGamesModule// Best to be last
+    LottoGamesModule,
+    AppRoutingModule,// Best to be last
+
   ],
   providers: [WebService, Compared2HistoryService, AlgoService, DisplayDataService, LottoGameService],
   bootstrap: [AppComponent]

@@ -26,10 +26,6 @@ export class LottoGameDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.hero$ = this.route.paramMap.pipe(
-    //   switchMap((params: ParamMap) =>
-    //     this.service.getHero(params.get('id')))
-    // );
     this.showLottoGame();
   }
 
@@ -42,9 +38,5 @@ export class LottoGameDetailComponent implements OnInit {
       }, error => {
         console.error('Error in getting lotto game');
       });
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }

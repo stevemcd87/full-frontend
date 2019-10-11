@@ -10,7 +10,7 @@ import { ILottoGame } from '../interface';
   template: `
   <div *ngIf="ws.errors">{{ws.errors}}</div>
   <div *ngFor="let game of this.lottoGames; let i = index" >
-    <button [routerLink] ="['/', this.lottoGames[i].valueName ]" >{{game.name}}</button>
+    <button  >{{game.name}}</button>
   </div>
   `
 })

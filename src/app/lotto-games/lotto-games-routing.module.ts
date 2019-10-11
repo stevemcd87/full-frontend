@@ -8,19 +8,22 @@ import { LottoGameDetailOptionComponent } from './lotto-game-detail-option/lotto
 const lottoGameRoutes: Routes = [
   {
     path: 'lotto-games',
-    component: LottoGameListComponent
-  },
-  {
-    path: ':game',
-    component: LottoGameDetailComponent,
+    component: LottoGameListComponent,
     children: [
       {
-        path: ':option',
-        component: LottoGameDetailOptionComponent
-
+        path: ':game',
+        component: LottoGameDetailComponent,
+        children: [
+          {
+            path: ':option',
+            component: LottoGameDetailOptionComponent
+          }
+        ]
       }
     ]
   }
+
+
 
 ];
 

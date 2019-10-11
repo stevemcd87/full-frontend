@@ -7,7 +7,7 @@ import { ILotto, IWinningHistory, ILottoGame, IComparedLotto } from '../interfac
   selector: 'app-lotto-game-options',
   template: `
   <div *ngFor="let option of options">
-    <button *ngIf="lottoGame" [routerLink] ="['/',lottoGameName,option]">{{ws.displayName(option)}}</button>
+    <button *ngIf="lottoGame" >{{ws.displayName(option)}}</button>
   </div>
   `
 })
