@@ -1,3 +1,12 @@
-<p *ngFor="let winningLotto of winningHistory; let i = index ">
-  <span *ngIf="i < 10">{{winningLotto.date}}</span>
-</p>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Time of Day</th>
+    <th>Winning Numbers</th>
+  </tr>
+  <tr *ngFor="let winningLotto of winningHistory | slice:0:10; let i = index ">
+    <td >{{winningLotto.date}}</td>
+    <td >{{winningLotto.time}}</td>
+    <td >{{winningLotto.winningNumbers.join(', ')}}</td>
+  </tr>
+</table>

@@ -34,9 +34,25 @@ export class LottoGameDetailOptionComponent implements OnInit {
     this.option = this.route.snapshot.paramMap.get('option');
     this.lgs.getLottoGameOption(this.game, this.option)
       .subscribe((data: Array<ILotto | IWinningHistory | IComparedLotto>) => {
+        if (this.option === 'winningHistory') {
+          this.sortWHByDate(data)
+        }
         this.lottoGameOption = data;
       }, error => {
         console.error('Error in getting lotto game option');
       });
+  }
+
+  sortWHByDate(winningHistory) {
+    winningHistory.forEach((wh)=>{
+      let whDate = wh.date.split('/'),
+        month = whDate[0],
+        day = whDate[1],
+        year = +whDate[2] > 80  ? `19${whDate[2]}` : `20${whDate[2]}`;
+        wh.numberDate = new Date(+year, +month, +day).getTime();
+
+    });
+    winningHistory = winningHistory.sort(function(a, b){return b.numberDate-a.numberDate})
+    console.log(winningHistory);
   }
 }

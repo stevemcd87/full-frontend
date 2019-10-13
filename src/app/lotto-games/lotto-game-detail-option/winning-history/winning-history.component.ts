@@ -21,6 +21,11 @@ export class WinningHistoryComponent implements OnInit {
     //   }
     // })
     console.log('winningHistoryComponent');
+    console.log(this.sortByDate(this.winningHistory))
+  }
+
+  sortByDate(winningHistory) {
+    console.log(winningHistory);
   }
 
   // ngAfterContentChecked(){
