@@ -1,7 +1,13 @@
 <h2 *ngIf="lottoGame">{{this.lottoGame.name}}</h2>
-<div *ngFor="let option of options">
-  <button *ngIf="lottoGame" [routerLink]="['/lotto-games',this.lottoGame.valueName,this.lgs.optionValue(option)]" routerLinkActive="active">
-    {{lgs.displayName(option)}}
-  </button>
+<div id="lotto-game-option-links">
+  <div class="lotto-game-option-link" *ngFor="let option of options">
+    <a
+      *ngIf="lottoGame"
+       [routerLink]="['/lotto-games',this.lottoGame.valueName,this.lgs.optionValue(option)]"
+       routerLinkActive="active">
+      {{lgs.displayName(option)}}
+    </a>
+  </div>
 </div>
+
 <router-outlet></router-outlet>

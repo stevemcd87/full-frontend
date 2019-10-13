@@ -19,12 +19,6 @@ export class LottoGameListComponent implements OnInit {
 
   ngOnInit() {
     this.showLottoGames();
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.showLottoGames();
-    //   }
-    // })
-    // this.showLottoGames();
   }
 
   showLottoGames() {

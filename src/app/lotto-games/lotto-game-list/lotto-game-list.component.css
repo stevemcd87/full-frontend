@@ -1,0 +1,22 @@
+#lotto-game-links {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(16, 98, 5, 0.9);
+  padding: .5em;
+}
+
+.lotto-game-link  {
+  background-color: #159e05;
+  padding: 1em;
+  border-radius: 50%;
+}
+
+a {
+  font-family: 'Righteous', cursive;
+  font-size: 1.2em;
+}
+
+.active {
+  font-weight: bold;
+  font-size: 1.3em;
+}

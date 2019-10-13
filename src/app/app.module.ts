@@ -10,9 +10,11 @@ import { AlgoService } from './services/algo.service';
 import { Compared2HistoryService } from './services/compared-2-history.service';
 import { LottoGamesModule } from './lotto-games/lotto-games.module';
 import { AppRoutingModule } from './app-routing.module';
+// import { WinningHistoryComponent } from './lotto-games/lotto-game-detail-option/winning-history/winning-history.component';
 @NgModule({
   declarations: [
     AppComponent
+    // WinningHistoryComponent
   ],
   imports: [
     BrowserModule,

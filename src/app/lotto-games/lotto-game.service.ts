@@ -47,12 +47,13 @@ export class LottoGameService {
 
 
   optionValue(option: string): string {
-    if (option) {
+    if (option.search('-') !== -1) {
       let optionWords = option.split('-'),
         capitalLetter = optionWords[1].slice(0, 1).toUpperCase();
       optionWords[1] = capitalLetter + optionWords[1].slice(1);
       return optionWords.join('')
     }
+    return option
   }
 
 

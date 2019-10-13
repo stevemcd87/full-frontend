@@ -1,18 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+/* dominant color :  #040404 RGB: 4, 4, 4 */
+/* darkGreen2 : #083004  RGB: 16, 98, 5 */
+/* darkGreen3 : #106205  RGB: 16, 98, 5 */
+/* lightGreen2 : #159e05  RGB: 21, 158, 5 */
+/* lightGreen1 : #1fec05  RGB: 31, 236, 5 */
+/* purpleish  #0a0414    RGB: 10, 4, 20 */
 
-#table2 {
-    width: 100%;
+/* #570562 */
+
+/* AD4300 */
+
+/* 944716 */
+@import url('https://fonts.googleapis.com/css?family=Righteous|Roboto&display=swap');
+
+/* font-family: 'Righteous', cursive;
+font-family: 'Roboto', sans-serif; */
+
+
+html {
+  background-image: url('./assets/images/dollar-signs-bg.jpg');
+  min-height: 100vh;
+  box-sizing: border-box;
+  color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: .5em;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
-.orderBy-able {
-    background: lightblue;
+a {
+  color: white;
+  cursor: pointer;
 }
 
+header {
+  background-image: linear-gradient( rgba(4, 4, 4, 0.5), rgba(16, 98, 5, 0.9));
+  /* color: #1fec05; */
+}
 
-/* .tableHeader {
-    display: inline;
-} */
+header h1{
 
-td {
-    text-align: center;
+  font-family: 'Righteous', cursive;
 }

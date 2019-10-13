@@ -1,1 +1,11 @@
 <p>lotto-game-detail-option works!</p>
+<div *ngIf="option === 'winningHistory' ">
+  <app-winning-history
+    [winningHistory]="lottoGameOption"
+  ></app-winning-history>
+</div>
+<div *ngIf="option === 'statistics' ">
+  <app-statistics
+    [statistics]="lottoGameOption"
+  ></app-statistics>
+</div>

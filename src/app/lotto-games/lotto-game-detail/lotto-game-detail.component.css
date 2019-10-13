@@ -1,3 +1,14 @@
+#lotto-game-option-links {
+  background-color: #106205;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 3px solid #040404;
+}
+
+.lotto-game-option-link{
+  padding: .7em;
+}
+
 .active {
   font-weight: bold;
 }

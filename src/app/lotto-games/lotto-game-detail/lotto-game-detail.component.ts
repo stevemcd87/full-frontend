@@ -12,9 +12,9 @@ export class LottoGameDetailComponent implements OnInit {
   lottoGame: ILottoGame;
   snapshotId = 0;
   options = [
-    'lotto-possibilities',
+    // 'lotto-possibilities',
     'winning-history',
-    'compared-list'
+    'statistics'
   ];
 
   constructor(
