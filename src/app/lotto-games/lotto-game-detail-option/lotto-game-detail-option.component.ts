@@ -50,9 +50,7 @@ export class LottoGameDetailOptionComponent implements OnInit {
         day = whDate[1],
         year = +whDate[2] > 80  ? `19${whDate[2]}` : `20${whDate[2]}`;
         wh.numberDate = new Date(+year, +month, +day).getTime();
-
     });
-    winningHistory = winningHistory.sort(function(a, b){return b.numberDate-a.numberDate})
-    console.log(winningHistory);
+    return winningHistory.sort(function(a, b){return b.numberDate-a.numberDate})
   }
 }

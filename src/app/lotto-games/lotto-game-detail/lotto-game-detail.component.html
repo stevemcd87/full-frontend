@@ -1,4 +1,11 @@
-<h2 *ngIf="lottoGame">{{this.lottoGame.name}}</h2>
+<div *ngIf="lottoGame" id="lg-detail-header">
+  <h2 >{{this.lottoGame.name}}</h2>
+  <p>
+    {{this.lottoGame.name}} randomly selects {{this.lottoGame.lotteryLength}} numbers ranging from 0 - {{this.lottoGame.maxNumber}}
+    with {{this.lottoGame.statistics.length}} ways to win.
+  </p>
+</div>
+
 <div id="lotto-game-option-links">
   <div class="lotto-game-option-link" *ngFor="let option of options">
     <a
@@ -9,5 +16,4 @@
     </a>
   </div>
 </div>
-
 <router-outlet></router-outlet>

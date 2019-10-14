@@ -8,6 +8,8 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class WinningHistoryComponent implements OnInit {
   @Input() winningHistory: IWinningHistory[];
+  startRange = 0;
+  endRange = 10;
 
   constructor(
     // private route: ActivatedRoute,
@@ -20,16 +22,21 @@ export class WinningHistoryComponent implements OnInit {
         console.log(this.winningHistory);
     //   }
     // })
-    console.log('winningHistoryComponent');
-    console.log(this.sortByDate(this.winningHistory))
+
   }
 
-  sortByDate(winningHistory) {
-    console.log(winningHistory);
+  updateRange(e){
+    let elementId = e.target.id,
+    max = this.winningHistory.length;
+    if (elementId === 'up-arrow') {
+      if (this.endRange >= max) return
+      this.startRange += 10;
+      this.endRange += 10;
+    } else {
+      if (this.startRange === 0) return
+      this.startRange -= 10;
+      this.endRange -= 10;
+    }
   }
-
-  // ngAfterContentChecked(){
-  //   console.log(this.winningHistory);
-  // }
 
 }

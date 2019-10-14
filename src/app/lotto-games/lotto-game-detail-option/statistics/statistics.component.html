@@ -1,3 +1,17 @@
-<p *ngFor="let stat of statistics; let i = index ">
-  <span *ngIf="i < 10">{{stat.boxNumber}}</span>
-</p>
+<div id="range-div">
+  <span class="arrow-pointer" id="down-arrow" (click)="updateRange($event)">&lt;</span>
+  <span id="range-span">{{startRange}} - {{endRange}} </span>
+  <span class="arrow-pointer" id="up-arrow" (click)="updateRange($event)">&gt;</span>
+</div>
+<table *ngIf="statistics" >
+  <tr class="data-headings">
+    <th>Lotto Number</th>
+    <th>Straight Wins</th>
+    <th>Box Wins</th>
+  </tr>
+  <tr class="data-row" *ngFor="let stat of statistics | slice:startRange:endRange; let i = index " (click)="lottoNumberDetails()">
+    <td >{{stat.lotto.lotto.join(' - ')}}</td>
+    <td >{{stat.straightNumber}}</td>
+    <td >{{stat.boxNumber}}</td>
+  </tr>
+</table>

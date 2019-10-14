@@ -1,12 +1,20 @@
-<table>
+<div id="range-div">
+  <span class="arrow-pointer" id="down-arrow" (click)="updateRange($event)">&lt;</span>
+  <span id="range-span">{{startRange}} - {{endRange}} </span>
+  <span class="arrow-pointer" id="up-arrow" (click)="updateRange($event)">&gt;</span>
+</div>
+
+<table *ngIf="winningHistory">
   <tr>
+    <th>Winning Numbers</th>
     <th>Date</th>
     <th>Time of Day</th>
-    <th>Winning Numbers</th>
+
   </tr>
-  <tr *ngFor="let winningLotto of winningHistory | slice:0:10; let i = index ">
+  <tr *ngFor="let winningLotto of winningHistory | slice:startRange:endRange; let i = index ">
+    <td >{{winningLotto.winningNumbers.join(' - ')}}</td>
     <td >{{winningLotto.date}}</td>
     <td >{{winningLotto.time}}</td>
-    <td >{{winningLotto.winningNumbers.join(', ')}}</td>
+
   </tr>
 </table>

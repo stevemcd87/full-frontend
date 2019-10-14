@@ -1,0 +1,43 @@
+
+#range-div {
+  margin:  1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+#range-span {
+  display: flex;
+  align-self:  center;
+  background-color: rgba(16, 98, 5, 0.9);
+  border-radius: 30%;
+  padding: .7em;
+  font-size: 1.3em;
+}
+
+.arrow-pointer {
+  padding: .5em;
+  background: rgba(21, 158, 5 , 0.9);
+  border-radius: 50%;
+  font-size: 2em;
+}
+
+table {
+  width:100%;
+  font-size: 1.1em;
+}
+tr:nth-child(odd) {
+  background: rgba(21, 158, 5 , 0.9);
+}
+
+
+tr:nth-child(even) {
+  background-color: rgba(16, 98, 5, 0.9);
+}
+
+th {
+  padding: .4em;
+}
+
+td {
+  padding: .4em;
+}

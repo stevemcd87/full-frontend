@@ -1,8 +1,24 @@
+ #lg-detail-header{
+  background: rgba(21, 158, 5 , 0.9);
+}
+
+ #lg-detail-header h2 {
+  background-color: rgba(16, 98, 5, 0.9);
+  padding: .5em;
+  margin-bottom: 0;
+}
+
+#lg-detail-header p {
+  margin-top: 0;
+ padding: 1em;
+}
+
 #lotto-game-option-links {
-  background-color: #106205;
+  background-color: rgba(16, 98, 5, 0.9);
   display: flex;
   justify-content: space-around;
   border-bottom: 3px solid #040404;
+  font-size: 1.2em;
 }
 
 .lotto-game-option-link{
