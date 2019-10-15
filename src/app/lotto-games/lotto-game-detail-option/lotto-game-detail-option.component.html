@@ -1,10 +1,12 @@
 <div *ngIf="option === 'winningHistory' ">
   <app-winning-history
     [winningHistory]="lottoGameOption"
+    [lottoGameName]="game"
   ></app-winning-history>
 </div>
 <div *ngIf="option === 'statistics' ">
   <app-statistics
+    [lottoGameName]="game"
     [statistics]="lottoGameOption"
   ></app-statistics>
 </div>

@@ -1,6 +1,6 @@
 
 #range-div {
-  margin:  1em;
+  margin:  1em 0;
   display: flex;
   justify-content: space-between;
 }
@@ -21,10 +21,19 @@
   font-size: 2em;
 }
 
+.arrow-pointer:hover {
+  cursor: pointer;
+}
+
 table {
   width:100%;
   font-size: 1.1em;
 }
+
+tr.data-row:hover {
+  cursor: pointer;
+}
+
 tr:nth-child(odd) {
   background: rgba(21, 158, 5 , 0.9);
 }

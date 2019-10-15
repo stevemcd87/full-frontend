@@ -45,6 +45,16 @@ export class LottoGameService {
       );
   }
 
+  getWinningNumberDetail(game: string, winningNumber:string): Observable<IComparedLotto> {
+    const url = `${this.nodeEndPoint}/lotto-games/${game}/statistics/${winningNumber}`;
+    console.log(url);
+    return this.http.get<IComparedLotto>(url)
+      .pipe(
+        tap(_ => console.log(`fetched winningNumber option: ${winningNumber}`)),
+        catchError(this.handleError<IComparedLotto>(`getLottoGameOption game=${game} winningNumber=${winningNumber}`))
+      );
+  }
+
 
   optionValue(option: string): string {
     if (option.search('-') !== -1) {

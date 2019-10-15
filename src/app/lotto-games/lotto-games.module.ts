@@ -10,6 +10,7 @@ import { LottoGameDetailOptionComponent } from './lotto-game-detail-option/lotto
 import { LottoGamesRoutingModule } from './lotto-games-routing.module';
 import { WinningHistoryComponent } from './lotto-game-detail-option/winning-history/winning-history.component';
 import { StatisticsComponent } from './lotto-game-detail-option/statistics/statistics.component';
+import { WinningNumberDetailComponent } from './winning-number-detail/winning-number-detail.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { StatisticsComponent } from './lotto-game-detail-option/statistics/stati
     LottoGameDetailComponent,
     LottoGameDetailOptionComponent,
     WinningHistoryComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    WinningNumberDetailComponent
   ],
   imports: [
     CommonModule,

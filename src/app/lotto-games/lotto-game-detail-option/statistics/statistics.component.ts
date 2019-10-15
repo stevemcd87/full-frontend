@@ -7,6 +7,7 @@ import { IComparedLotto } from '../../../interface';
 })
 export class StatisticsComponent implements OnInit {
   @Input() statistics: IComparedLotto[];
+  @Input() lottoGameName: string;
   startRange = 0;
   endRange = 10;
   constructor() { }

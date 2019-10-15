@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LottoGameListComponent } from './lotto-game-list/lotto-game-list.component';
 import { LottoGameDetailComponent } from './lotto-game-detail/lotto-game-detail.component';
 import { LottoGameDetailOptionComponent } from './lotto-game-detail-option/lotto-game-detail-option.component';
+import { WinningNumberDetailComponent } from './winning-number-detail/winning-number-detail.component';
 
 const lottoGameRoutes: Routes = [
   {
@@ -14,6 +15,10 @@ const lottoGameRoutes: Routes = [
         path: ':game',
         component: LottoGameDetailComponent,
         children: [
+          {
+            path: ':option/:winningNumber',
+            component: WinningNumberDetailComponent
+          },
           {
             path: ':option',
             component: LottoGameDetailOptionComponent

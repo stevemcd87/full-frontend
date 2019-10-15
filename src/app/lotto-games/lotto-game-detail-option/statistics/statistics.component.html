@@ -1,6 +1,6 @@
-<div id="range-div">
+<div *ngIf="statistics" id="range-div">
   <span class="arrow-pointer" id="down-arrow" (click)="updateRange($event)">&lt;</span>
-  <span id="range-span">{{startRange}} - {{endRange}} </span>
+  <span id="range-span">{{startRange}} - {{endRange}}  / {{statistics.length}}</span>
   <span class="arrow-pointer" id="up-arrow" (click)="updateRange($event)">&gt;</span>
 </div>
 <table *ngIf="statistics" >
@@ -9,7 +9,11 @@
     <th>Straight Wins</th>
     <th>Box Wins</th>
   </tr>
-  <tr class="data-row" *ngFor="let stat of statistics | slice:startRange:endRange; let i = index " (click)="lottoNumberDetails()">
+  <tr
+  class="data-row"
+   *ngFor="let stat of statistics | slice:startRange:endRange"
+   [routerLink]="['/lotto-games',lottoGameName,'statistics',stat.lotto.lotto.join('-')]"
+   >
     <td >{{stat.lotto.lotto.join(' - ')}}</td>
     <td >{{stat.straightNumber}}</td>
     <td >{{stat.boxNumber}}</td>

@@ -1,6 +1,6 @@
-<div id="range-div">
+<div *ngIf="winningHistory" id="range-div">
   <span class="arrow-pointer" id="down-arrow" (click)="updateRange($event)">&lt;</span>
-  <span id="range-span">{{startRange}} - {{endRange}} </span>
+  <span id="range-span">{{startRange}} - {{endRange}} / {{winningHistory.length}} </span>
   <span class="arrow-pointer" id="up-arrow" (click)="updateRange($event)">&gt;</span>
 </div>
 
@@ -11,7 +11,10 @@
     <th>Time of Day</th>
 
   </tr>
-  <tr *ngFor="let winningLotto of winningHistory | slice:startRange:endRange; let i = index ">
+  <tr
+    *ngFor="let winningLotto of winningHistory | slice:startRange:endRange"
+    [routerLink]="['/lotto-games',lottoGameName,'statistics',winningLotto.winningNumbers.join('-')]"
+  >
     <td >{{winningLotto.winningNumbers.join(' - ')}}</td>
     <td >{{winningLotto.date}}</td>
     <td >{{winningLotto.time}}</td>

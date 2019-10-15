@@ -8,6 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class WinningHistoryComponent implements OnInit {
   @Input() winningHistory: IWinningHistory[];
+  @Input() lottoGameName: string;
   startRange = 0;
   endRange = 10;
 
