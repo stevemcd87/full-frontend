@@ -30,8 +30,9 @@ table {
   font-size: 1.1em;
 }
 
-tr.data-row:hover {
+tr.data-row td:hover {
   cursor: pointer;
+  background: rgba(10, 4, 20 , 0.7)
 }
 
 tr:nth-child(odd) {

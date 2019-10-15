@@ -7,7 +7,7 @@ import { ActivatedRoute ,Router, NavigationEnd } from '@angular/router';
   templateUrl: './winning-number-detail.component.html',
   styleUrls: ['./winning-number-detail.component.css']
 })
-export class WinningNumberDetailComponent implements OnInit {
+export class WinningNumberDetailComponent implements OnInit{
 
   game = this.route.parent.snapshot.paramMap.get('game');
   winningNumber = this.route.snapshot.paramMap.get('winningNumber');

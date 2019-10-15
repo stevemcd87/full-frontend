@@ -33,6 +33,10 @@ body {
   padding-bottom: 2em;
 }
 
+/* .hide-mobile {
+  display: none;
+} */
+
 a {
   color: white;
   cursor: pointer;

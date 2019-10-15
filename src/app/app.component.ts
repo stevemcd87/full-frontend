@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   template: `
   <header>
     <h1>Smart Picks</h1>
-    <h2>Predicting the next winniing lottery numbers based on winning history</h2>
+    <h2>Analyze Lottery's History for Better Winning Number Prediction</h2>
   </header>
 
     <router-outlet></router-outlet>

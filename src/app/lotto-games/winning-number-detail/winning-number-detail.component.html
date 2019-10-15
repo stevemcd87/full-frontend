@@ -1,2 +1,36 @@
-<p>winning-number-detail works!</p>
-{{this.statistic}}
+<div *ngIf="statistic" id="winning-number-detail-comp">
+  <h2 >{{this.statistic.lotto.lotto.join(' - ')}}</h2>
+
+  <table >
+    <tr class="data-headings">
+      <th>Lotto Number</th>
+      <th>Straight Wins</th>
+      <th>Box Wins</th>
+    </tr>
+    <tr>
+      <td >{{this.statistic.lotto.lotto.join(' - ')}}</td>
+      <td >{{this.statistic.straightNumber}}</td>
+      <td >{{this.statistic.boxNumber}}</td>
+    </tr>
+  </table>
+
+  <h3>Dates Won</h3>
+
+  <table >
+    <tr class="data-headings">
+      <th>Winning Numbers</th>
+      <th>Date</th>
+      <th>Time of Day</th>
+      <!-- <th class="hide-mobile">Straight</th> -->
+    </tr>
+    <tr *ngFor="let winDate of statistic.winningDates">
+      <td >{{winDate.winningNumbers.join(' - ')}}</td>
+      <td >{{winDate.date}}</td>
+      <td >{{winDate.time}}</td>
+      <!-- <td class="hide-mobile">{{(winDate.straight)? 'True' : 'False'}}</td> -->
+    </tr>
+  </table>
+
+</div>
+
+<!-- {{this.statistic}} -->

@@ -18,54 +18,7 @@ export class WebService {
     { "comparedList": ["boxNumber", "lotto", "straightNumber", "winningDates"] },
   ];
   constructor(private http: HttpClient) { }
-
-  getLottoGames(): Observable<ILottoGame[]> {
-    return this.http.get<ILottoGame[]>(this.nodeEndPoint)
-      .pipe(
-        tap(_ => console.log('fetched Lotto Games')),
-        catchError(this.handleError<ILottoGame[]>('getLottoGames', []))
-      );
-  }
-
-  getLottoGame(game: string): Observable<ILottoGame> {
-    const url = `${this.nodeEndPoint}/${game}`;
-    return this.http.get<ILottoGame>(url)
-      .pipe(
-        tap(_ => console.log(`fetched Lotto Game: ${game}`)),
-        catchError(this.handleError<ILottoGame>(`getLottoGame id=${game}`))
-      );
-  }
-
-  // getLottoGameOption(game: string, option: string): Observable<ILotto | IWinningHistory | IComparedLotto> {
-  //   const url = `${nodeEndPoint}/${game}/${option}`
-  //   return this.http.get(url)
-  //     .subscribe(res => {
-  //       this.lottoGameOption = res;
-  //     }, error => {
-  //       console.error('Error in getting lotto game - Make sure the server is running');
-  //     });
-  // }
-
-
-  optionValue(option: string): string {
-    if (option) {
-      let optionWords = option.split('-'),
-        capitalLetter = optionWords[1].slice(0, 1).toUpperCase();
-      optionWords[1] = capitalLetter + optionWords[1].slice(1);
-      return optionWords.join('')
-    }
-  }
-
-
-  displayName(option) {
-    return (
-      option
-        .split("-")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")
-    )
-  }
-
+  
   orderBy(array: any[], objectKey: string, direction: string) {
     switch (direction) {
       case 'up':
@@ -99,14 +52,5 @@ export class WebService {
     } // End of string2NumberDate
   } // End of CreateNumverDate()
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+
 }

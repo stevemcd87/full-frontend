@@ -16,7 +16,7 @@ const lottoGameRoutes: Routes = [
         component: LottoGameDetailComponent,
         children: [
           {
-            path: ':option/:winningNumber',
+            path: 'statistics/:winningNumber',
             component: WinningNumberDetailComponent
           },
           {

@@ -11,7 +11,7 @@
     <th>Time of Day</th>
 
   </tr>
-  <tr
+  <tr class="data-row"
     *ngFor="let winningLotto of winningHistory | slice:startRange:endRange"
     [routerLink]="['/lotto-games',lottoGameName,'statistics',winningLotto.winningNumbers.join('-')]"
   >

@@ -1,0 +1,25 @@
+table {
+  width:100%;
+  font-size: 1.1em;
+}
+
+tr.data-row:hover {
+  cursor: pointer;
+}
+
+tr:nth-child(odd) {
+  background: rgba(21, 158, 5 , 0.9);
+}
+
+
+tr:nth-child(even) {
+  background-color: rgba(16, 98, 5, 0.9);
+}
+
+th {
+  padding: .4em;
+}
+
+td {
+  padding: .4em;
+}
